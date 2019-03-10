@@ -1,2 +1,2 @@
 # plantech
-agriculture assistance application
+Agriculture assistance application.
