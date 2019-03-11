@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>PlanTech</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+           <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta charset="UTF-8">
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="HighFive" />
+            <link rel="stylesheet" href="css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/style.css">
+    <link href="css/jquery-jvectormap-2.0.3.css" rel="stylesheet" type="text/css"/>
+    
+    </head>
+    <body >
+    <div class="container">
+        <h2>User data</h2>
+        <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm.value)">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" #nameRef="ngModel" required minlength="4" maxlength="10" class="form-control" name="name" ngModel>
+               <!-- <div [hidden]="nameRef.valid || nameRef.pristine" class="alert alert-danger">
+                    Unesite ime!
+                </div>-->
+                <div *ngIf="nameRef.errors && (nameRef.dirty || nameRef.touched)" class="alert alert-danger">
+                        <div [hidden]="!nameRef.errors.required">
+                            Unesite ime!;
+                        </div>
+                        <div [hidden]="!nameRef.errors.minlength">
+                            Minimum 4 karaktera!;
+                        </div>
+                        <div [hidden]="!nameRef.errors.maxlength">
+                            Maksimum 10 karaktera!;
+                        </div>
+                    </div>
+            </div>
+
+             <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" name="email" ngModel>
+            </div>
+            <div ngModelGroup="address">
+                 <div class="form-group">
+                <label>Street</label>
+                <input type="text" class="form-control" name="street" ngModel>
+            </div>
+
+             <div class="form-group">
+                <label>City</label>
+                <input type="text" class="form-control" name="city" ngModel>
+            </div>
+            <div class="form-group">
+                <label>PostalCode</label>
+                <input type="text" #refPincode="ngModel" pattern="^[1-9][0-9]{4}$" class="form-control" name="city" ngModel>
+                 <div *ngIf="refPincode.errors && (refPincode.dirty || refPincode.touched)" class="alert alert-danger">
+                        <div [hidden]="!refPincode.errors.pattern">
+                            Unesite ispravni postanski kod!;
+                        </div>
+                    </div>
+            </div>
+                </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+    </body>
+</html>
+
+
+
+

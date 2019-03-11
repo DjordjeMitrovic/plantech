@@ -1,0 +1,68 @@
+
+.infoTab
+{
+	color:white;
+	border-radius: 20px;
+	padding: 15px;
+	  background:  #8f2846; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(right top, #222, #8f2846); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(top right, #222, #8f2846); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(top right,#222, #8f2846); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top right, #222, #8f2846); /* Standard syntax */
+ min-height:650px;
+ max-height:100%;
+}
+
+.infoTabgreen
+{
+	color:white;
+	border-radius: 20px;
+	padding: 15px;
+	  background:  #2CC185; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(right top, #222, #2CC185); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(top right, #222, #2CC185); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(top right,#222, #2CC185); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top right, #222, #2CC185); /* Standard syntax */
+ min-height:650px;
+ max-height:100%;
+}
+.infoTabblue
+{
+	color:white;
+	border-radius: 20px;
+	padding: 15px;
+	  background:  #3b5999; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(right top, #222, #3b5999); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(top right, #222, #3b5999); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(top right,#222, #3b5999); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top right, #222, #3b5999); /* Standard syntax */
+ min-height:650px;
+ max-height:100%;
+}
+.infoTablightBlue
+{
+	color:white;
+	border-radius: 20px;
+	padding: 15px;
+	  background:  #4C75A3; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(right top, #222, #4C75A3); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(top right, #222, #4C75A3); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(top right,#222, #4C75A3); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top right, #222, #4C75A3); /* Standard syntax */
+ min-height:650px;
+ max-height:100%;
+}
+.infoTaborange
+{
+	color:white;
+	border-radius: 20px;
+	padding: 15px;
+	  background:  #D65129; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(right top, #222, #D65129); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(top right, #222,#D65129); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(top right,#222, #D65129); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top right, #222, #D65129); /* Standard syntax */
+ min-height:650px;
+ max-height:100%;
+}
+  

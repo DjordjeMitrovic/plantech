@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>HighFive</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+	<link rel="icon" href="favicon.ico" type="image/ico" sizes="16x16">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <!-- za mape na login strani -->
+  <link rel="stylesheet" type="text/css" href="css/WeatherMap/leaflet.css" />
+  <link rel="stylesheet" type="text/css" href="css/WeatherMap/leaflet-openweathermap.css" />
+  <link rel="stylesheet" type="text/css" href="css/WeatherMap/map.css" />
+  <link rel='stylesheet prefetch' href='css/bootstrap.min.css'>
+
+
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.css'>
+<style>
+#loading-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+    background-color: #222 !important;
+}
+body{
+
+}
+
+#loading-text {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #999;
+  width: 100px;
+  height: 30px;
+  margin: -7px 0 0 -45px;
+  text-align: center;
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 20px;
+}
+
+#loading-content {
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  width: 170px;
+  height: 170px;
+  margin: -85px 0 0 -85px;
+  border: 3px solid #F00;
+}
+
+#loading-content:after {
+  content: "";
+  position: absolute;
+  border: 3px solid #0F0;
+  left: 15px;
+  right: 15px;
+  top: 15px;
+  bottom: 15px;
+}
+
+#loading-content:before {
+  content: "";
+  position: absolute;
+  border: 3px solid #00F;
+  left: 5px;
+  right: 5px;
+  top: 5px;
+  bottom: 5px;
+}
+
+#loading-content {
+  border: 3px solid transparent;
+  border-top-color: #4D658D;
+  border-bottom-color: #4D658D;
+  border-radius: 50%;
+  -webkit-animation: loader 2s linear infinite;
+  -moz-animation: loader 2s linear infinite;
+  -o-animation: loader 2s linear infinite;
+  animation: loader 2s linear infinite;
+}
+
+#loading-content:before {
+  border: 3px solid transparent;
+  border-top-color: #D4CC6A;
+  border-bottom-color: #D4CC6A;
+  border-radius: 50%;
+  -webkit-animation: loader 3s linear infinite;
+    -moz-animation: loader 2s linear infinite;
+  -o-animation: loader 2s linear infinite;
+  animation: loader 3s linear infinite;
+}
+
+#loading-content:after {
+  border: 3px solid transparent;
+  border-top-color: #84417C;
+  border-bottom-color: #84417C;
+  border-radius: 50%;
+  -webkit-animation: loader 1.5s linear infinite;
+  animation: loader 1.5s linear infinite;
+    -moz-animation: loader 2s linear infinite;
+  -o-animation: loader 2s linear infinite;
+}
+
+@-webkit-keyframes loaders {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+</style>
+  <link rel="stylesheet" type="text/css" href="css/WeatherMap/leaflet-languageselector.css" />
+  <!-- kraj mapa -->
+</head>
+
+<body>
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-datepicker.js"></script>
+  <script src="js/jquery-jvectormap-2.0.3.min.js"></script>
+  <script src="js/jquery-jvectormap-world-mill.js"></script>
+  <script type='text/javacript' src="../../jshashes.js"></script>
+
+  <!-- za mape na login strani -->
+  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+  <script src="js/WeatherMap/leaflet-languageselector.js"></script>
+  <script src="js/WeatherMap/map_i18n.js"></script>
+  <script src="js/WeatherMap/map.js"></script>
+  <script src="js/WeatherMap/leaflet.js"></script>
+  <script src="js/WeatherMap/Permalink.js"></script>
+  <script src="js/WeatherMap/Permalink.Layer.js"></script>
+  <script src="js/WeatherMap/Permalink.Overlay.js"></script>
+  <script src="js/WeatherMap/leaflet-flattrbutton.js"></script>
+  <script src="js/WeatherMap/leaflet-openweathermap.js"></script>
+  <!-- kraj mapa -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.bundle.min.js"></script>
+
+
+
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqbPWLQuyiljUeKZ4f8KTsAHmCFnSAMJs&libraries=drawing"
+    defer>
+
+    </script>
+  <script>
+    !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
+  </script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.js'></script>
+
+
+
+
+
+
+
+
+  <app-root>
+    <div id="loading-wrapper">
+      <div id="loading-text">UČITAVANJE</div>
+      <div id="loading-content"></div>
+    </div>
+    </app-root>
+<script type="text/javascript" src="inline.bundle.js"></script><script type="text/javascript" src="polyfills.bundle.js"></script><script type="text/javascript" src="scripts.bundle.js"></script><script type="text/javascript" src="styles.bundle.js"></script><script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="main.bundle.js"></script></body>
+
+</html>

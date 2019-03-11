@@ -1,0 +1,38 @@
+
+define Merenje{
+    value: null,
+    id: null,
+    tipMerenja: null,
+    tipBiljke: null,
+}
+define Obavestenje{
+    tip: null
+}
+
+
+
+
+
+rule Upozorenje1{
+when{
+f: Merenje f.value < 1 && f.value > 0.8; 
+
+}
+then{
+assert ( new Obavestenje({tip: 1}));
+console.log("upao");
+
+}
+
+}
+
+rule Upozorenje2{
+when{
+f: Merenje f.value < 0.8; 
+
+}
+then{
+assert ( new Obavestenje({tip: 2}));
+}
+
+}

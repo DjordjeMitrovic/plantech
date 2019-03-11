@@ -1,0 +1,3 @@
+ select [(ngModel)]='drzava' name='drzava' class=form-control #t (change)=callType(t.value) data-style=btn-success
+                                                     option ngFor = let country of country_array [ngValue]='country' {{country}}option
+                                                    select

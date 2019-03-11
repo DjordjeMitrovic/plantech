@@ -1,0 +1,33 @@
+SELECT idPlant, COUNT( * ) AS  'brojMerenja'
+FROM measuring
+GROUP BY idPlant
+
+select id from measuring  where date in (select min(date) from measuring where idPlant = 4) 
+
+delete from measuring  where date in (select min(date) from (select * from measuring) as m where idPlant = 4) 
+
+
+
+delete from measuing m1 where m1.idPlant in (select m2.idPlant from (select idPlant from measuring) m2 group by m2.idPlant having count(*) > 5)
+
+and m1.date in (select min(date) from (select * from measuring) as m3 where idPlant = m1.idPlant) 
+
+
+DOBIJANJE SVIH ROLOVA
+
+select * from(
+select uc.idWorker as 'iduser' , pp.idPlant as 'idplant', r.permission as 'perm' 
+from owner_parcel op join user u on u.id = op.idOwner join plant_parcel pp on op.idParcel = pp.idParcel
+join user_connect uc on uc.idOwner=u.id join role r on uc.idRole = r.id
+    UNION
+ select u.id as 'iduser', pp.idPlant as 'idplant', 63 as 'perm' from owner_parcel op join user u on u.id = op.idOwner join plant_parcel pp on op.idParcel = pp.idParcel
+   
+    
+    ) as t3
+
+
+
+select (select count(*) from notifications where idWorker=4) as 'obavestenja', (select count(*) from plantation p join plant_parcel pp on p.id=pp.idPlant join owner_parcel op on pp.idParcel = op.idParcel where op.idOwner=4) as 'plantaze',
+
+(select count(*) from user_connect uc join role r on r.id=uc.idRole where uc.idOwner=4 and  r.name!='ekspert') as 'radnici',
+(select count(*) from user_connect uc  join role r on r.id=uc.idRole where uc.idOwner=4 and  r.name='ekspert') as 'eksperti'

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Home page</title>
+  
+  
+  <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+  <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Raleway:600,900'>
+  <style>
+ 
+
+
+h1.deepshadow {
+  color: #e0dfdc;
+	font-size:150px;
+	 white-space: nowrap;
+  text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222, 0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a, 0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212, 0 22px 30px rgba(0, 0, 0, 0.9);
+}
+
+span, span:after {
+   
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    letter-spacing: .1em;
+    padding: .2em 0 .25em 0;
+}
+
+span {
+    font-size: 4em;
+    z-index: 100;
+   
+}
+
+@font-face {
+	font-family: "open";
+	font-style: normal;
+	font-weight: 300;
+	src: local("Open Sans Light"), local("OpenSans-Light"), url(https://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTZ1r3JsPcQLi8jytr04NNhU.woff) format('woff');
+}
+
+*, *:before, *:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+
+
+a {
+	
+}
+
+@keyframes linear {
+	
+	from {
+		background-position: 0 0;
+	}
+	to {
+		background-position: 200px 0;
+	}
+	
+}
+
+@keyframes radial {
+	
+	from {
+		background-position: 0 0;
+	}
+	to {
+		background-position: 0 60px;
+	}
+	
+}
+
+@keyframes repeating {
+	
+	from {
+		background-position: 0 0;
+	}
+	to {
+		background-position: 0 85px;
+	}
+	
+}
+
+@keyframes electronic {
+	
+	0%, 100% {
+		background-position: 20px -30px;
+	}
+	25% {
+		background-position: 150px 5px;
+	}
+	50% {
+		background-position: 20px 40px;
+	}
+	75% {
+		background-position: -100px 5px;
+	}
+	
+}
+
+.biliboard {
+display: block;
+	margin: auto;
+	margin-top: 50px;
+
+	color: white !important;
+	font-size:20px !important;
+		text-decoration: none !important;
+	width: 200px;
+	padding: 20px;
+	text-align: center;
+	position: relative;
+	background: #292929;
+	color: #333;
+	font: 13px open, tahoma;
+}
+.biliboard:before {
+	content: '';
+	display: block;
+	height: 100%;
+	width: 100%;
+	border-radius: 3px;
+	transform: scale( 1.02, 1.08 );
+	position: absolute;
+	background: #f00;
+	background: linear-gradient( 90deg, #fafafa, #fafafa, #1D8EF7, #292929, #292929 );
+	background-position: 55px 0;
+	top: 0;
+	animation: linear 1s infinite linear;
+	left: 0;
+	z-index: -1;
+}
+
+.biliboard.radial:before {
+	background: radial-gradient( #292929, #292929, #F2A61A,#292929, #292929 );
+	animation: radial 1s infinite linear;
+}
+.biliboard:hover {
+	color:#1D8EF7 !important;
+	font-size:25px !important;
+}
+
+.biliboard.repeating:before {
+	background: repeating-linear-gradient( -45deg, #fafafa, #fafafa 30px, #5FC914 30px, #5FC914 60px ) fixed;
+	animation: repeating 1s infinite linear;
+}
+
+.biliboard.electronic:before {
+	background: radial-gradient( #EA238D, #EA238D, #EA238D, #EA238D, #292929, #292929 ) no-repeat;
+	background-size: 150px 50px;
+	animation: electronic 2s infinite linear;
+}
+    </style>
+<link href="css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="skw-pages">
+  <div class="skw-page skw-page-1 active">
+    <div class="skw-page__half skw-page__half--left hidden-xs hidden-sm">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content"></div>
+      </div>
+    </div>
+    <div class="skw-page__half skw-page__half--right">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content">
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			
+			<ul class="nav navbar-nav">
+				  <li  class="active"><a href="#" class="one">Home</a></li>
+				  <li ><a href="#"  class="two">Aplikacija</a></li>
+				  <li  ><a href="#" class="three">Servisi</a></li>
+				  <li  ><a href="#" class="four">O nama</a></li>
+					<li ><a href="#" class="five">Kontakt</a></li>
+					
+				</ul>
+			  </div>
+			</nav>
+			<div class="about">
+			 <p class="skw-page__description">Dobro dosli na</p>
+               <h1 class="deepshadow">HighFive</h1>
+          <p class="skw-page__description">Prdruzite nam se i pocnite organizaciju vasih imanja</p>
+		  <a href="#" class="biliboard ">Prijavi se!</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="skw-page skw-page-2">
+    <div class="skw-page__half skw-page__half--left">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content">
+				<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			
+					<ul class="nav navbar-nav">
+				  <li ><a href="#" class="one">Home</a></li>
+				  <li  class="active"><a href="#"  class="two">Aplikacija</a></li>
+				  <li  ><a href="#" class="three">Servisi</a></li>
+				  <li  ><a href="#" class="four">O nama</a></li>
+					<li ><a href="#" class="five">Kontakt</a></li>
+					
+				</ul>
+			  </div>
+			</nav>
+
+      
+          <p class="skw-page__description">Uz pomoć naše aplikacije možete vrlo lako i brzo voditi evidenciju o svim svojim plantažama i radnicima</p>
+		  <p class="skw-page__description">Uz sve to na raspologanju vam je i naš pametni expertni sistem koji će vam dosta pomoći u radu</p>
+          <h2 class="skw-page__heading">Brzo i lako za lako za koršćenje</h2>
+		  <p class="skw-page__description">Cela aplikacija se isto može koristi na svim vašim uredjajim od računara do vašeg pametnog telefon</p>
+          
+       
+        </div>
+      </div>
+    </div>
+    <div class="skw-page__half skw-page__half--right">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content"></div>
+      </div>
+    </div>
+  </div>
+  <div class="skw-page skw-page-3">
+    <div class="skw-page__half skw-page__half--left">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content"></div>
+      </div>
+    </div>
+    <div class="skw-page__half skw-page__half--right">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content">
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			
+					<ul class="nav navbar-nav">
+				  <li><a href="#" class="one">Home</a></li>
+				  <li  ><a href="#"  class="two">Aplikacija</a></li>
+				  <li  class="active"><a href="#" class="three">Servisi</a></li>
+				  <li  ><a href="#" class="four">O nama</a></li>
+					<li ><a href="#" class="five">Kontakt</a></li>
+					
+				</ul>
+			  </div>
+			</nav>
+
+          <h2 class="skw-page__heading">Servisi aplikacije</h2>
+          <p class="skw-page__description">servisi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="skw-page skw-page-4">
+    <div class="skw-page__half skw-page__half--left">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content">
+		<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			
+				<ul class="nav navbar-nav">
+				  <li><a href="#" class="one">Home</a></li>
+				  <li  ><a href="#"  class="two">Aplikacija</a></li>
+				  <li  ><a href="#" class="three">Servisi</a></li>
+				  <li  class="active"><a href="#" class="four">O nama</a></li>
+					<li ><a href="#" class="five">Kontakt</a></li>
+					
+				</ul>
+			  </div>
+			</nav>
+          <h2 class="skw-page__heading"></h2>
+          <p class="skw-page__description">Naš HighFive tim je sačinjen od najboljih web programera i dizajnera zajedno sa velikim brojem experata iz oblasti poljoprivrede</p>
+		      <p class="skw-page__description">Naš cilj je da omogućimo korisniku lak i brz pristup našem sistemu</p>
+			  		      <p class="skw-page__description">Naš time za podršku je dostupan u svakom trenutku 24/7</p>
+						     <p class="skw-page__description">Zadovoljstvo naših korisnika je na prvom mestu</p>
+        </div>
+      </div>
+    </div>
+    <div class="skw-page__half skw-page__half--right">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content"></div>
+      </div>
+    </div>
+  </div>
+  <div class="skw-page skw-page-5">
+    <div class="skw-page__half skw-page__half--left">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content"></div>
+      </div>
+    </div>
+    <div class="skw-page__half skw-page__half--right">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content">
+		  <div class="container-fluid">
+	<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			
+				<ul class="nav navbar-nav">
+				  <li><a href="#" class="one">Home</a></li>
+				  <li  ><a href="#"  class="two">Aplikacija</a></li>
+				  <li  ><a href="#" class="three">Servisi</a></li>
+				  <li  ><a href="#" class="four">O nama</a></li>
+					<li class="active"><a href="#" class="five">Kontakt</a></li>
+					
+				</ul>
+			  </div>
+			</nav>
+       </div>
+        <div class="container-fluid">
+           
+               
+            
+        </div><!--/.container-->
+    
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script src="js/index.js"></script>
+
+</body>
+</html>

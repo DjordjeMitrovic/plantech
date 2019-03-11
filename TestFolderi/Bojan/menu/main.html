@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+         <title>PlanTech</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="HighFive" />  
+         <link rel="stylesheet" href="css/bootstrap.min.css">
+            <link rel="stylesheet" href="css/style.css">
+              <link rel="stylesheet" href="fontawesome/css/font-awesome.css">
+   
+
+    </head>
+    <body>
+    
+        <div class="page-container page-navigation-top-fixed">
+            <!-- levi meni -->
+            <div class="page-sidebar ">
+              
+                <ul class="x-navigation">
+                    <li class="xn-logo">
+                        <a href="#">PlanTech</a>
+                        <a href="#" class="x-navigation-control"></a>
+                    </li>
+                       <!-- PROFILE -->
+                     <li class="xn-profile">
+                        <div class="profile">
+                            <div class="profile-data">
+                                <div class="profile-data-name">John Doe</div>
+                                <div class="profile-data-title">Web Developer/Designer</div>
+                            </div>
+                           
+                        </div>                                                                        
+                    </li>
+                       <!-- END PROFILE -->
+                     <!-- MENI BUTTONS -->
+                    <li class="active">
+                        <a href="#"><span class="fa fa-desktop"></span>  Mapa</a>                        
+                    </li>                    
+                    <li class="">
+                        <a href="#"><span class="fa fa-desktop"></span>  Dodele</a>                        
+                    </li>
+                    <li >
+                        <a href="#"><span class="fa fa-desktop"></span>  Meni 2</a>                        
+                    </li>   
+                   <!-- END MENI BUTTONS -->   
+                </ul>      
+            </div>
+            
+            <!-- END LEVI MENI -->  
+            <div class="page-content">
+                
+                <!-- GORNJI MENI -->
+                <ul class="x-navigation x-navigation-horizontal x-navigation-panel" style="background-color: #33414e">
+                    <!-- SIGN OUT -->
+                    <li class="pull-right">
+                        <a href="#" ><span class="fa fa-sign-out"></span></a>                        
+                    </li> 
+                    <!-- END SIGN OUT -->       
+                </ul>
+                <!-- END GORNJI MENI -->
+                
+                
+                  <!--main page -->
+                <div class="page-content-wrap">   
+                    <div class="row" style="margin-right:0px;">
+                       
+                        
+                        <div class="col-md-12" style="padding-right:0px;">
+
+                        <div id="googleMap" style="width:100%;height:100vh;"></div>
+
+                        </div>
+                        
+                    </div>
+
+                </div>
+         <!--end main page -->
+    
+        
+ 
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/actions.js"></script>  
+ 
+
+<script>
+function myMap() {
+var mapProp= {
+    center:new google.maps.LatLng(51.508742,-0.120850),
+    zoom:5,
+};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+</script>
+   
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
+
+          
+        
+        </div>
+                 </div>
+    </body>
+</html>

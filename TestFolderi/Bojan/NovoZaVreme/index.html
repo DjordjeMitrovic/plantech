@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>PlanTech</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="HighFive" />
+
+    <link rel='stylesheet prefetch' href='css/bootstrap.min.css'>
+    <link rel="stylesheet" href="css/mainStyle.css">
+
+    <link rel="stylesheet" href="css/infoTabStyle.css">
+    <link rel="stylesheet" href="css/weather-icons.css">
+
+
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqbPWLQuyiljUeKZ4f8KTsAHmCFnSAMJs&libraries=drawing"
+        defer>
+
+        </script>
+
+
+
+    <script>
+        function initMap() {
+            var mapProp = {
+                center: new google.maps.LatLng(51.508742, -0.120850),
+                zoom: 5,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+
+<body>
+
+<div id="loading-wrapper" *ngIf="dozvole==undefined">
+  <div id="loading-text">UČITAVANJE</div>
+  <div id="loading-content"></div>
+</div>
+    <div id="wrapper" *ngIf="dozvole!==undefined">
+
+
+        <app-meni></app-meni>
+        <!-- glavni deo -->
+        <div id="page-wrapper" *ngIf="dozvole!==undefined&&dozvole.guest==false">
+            <app-widgets></app-widgets>
+            <!-- widgeti         <div class="container-fluid">
+                
+                <div class="col-md-12 " style="text-align:center;margin-top: 10px">
+                    <div class="col-md-3">
+                        <div class="widget widget-success widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-globe"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div *ngIf="stats!==undefined" class="widget-int num-count">{{stats.plantaze}}</div>
+                                <div class="widget-title">registrovanih plantaza</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="widget widget-primary widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-users"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div *ngIf="stats!==undefined" class="widget-int num-count">{{stats.radnici}}</div>
+                                <div class="widget-title">registrovana radnka</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="widget widget-info widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-book"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div *ngIf="stats!==undefined" class="widget-int num-count">{{stats.eksperti}}</div>
+                                <div class="widget-title">registrovanih experata</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 ">
+                        <div class="widget widget-warning widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-warning"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div *ngIf="stats!==undefined" class="widget-int num-count">{{stats.obavestenja}}</div>
+                                <div class="widget-title">obavestenja</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             end widgeti -->
+
+            <div class="container-fluid">
+                <!-- ODABIR PARCELA -->
+                <form id="filter">
+                    <!--    <div class="col-md-12 " style="text-align:center" *ngIf="!sideBarVidljiv">
+                        <div class="col-md-4 col-centered " style="text-align:center;">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" style="background-color:  #8f2846;max-height: 42px">Odabir mojih parcela</div>
+                                <div class="panel-body " style="max-height: 65px">
+                                    <div class="input-group block center">
+                                        <span class="input-group-btn" style="width: 0;text-align: initial;">
+                                                  
+                                                <span class="input-group-addon">  <input type="text" name="term" [(ngModel)]="term"/> <i class="glyphicon glyphicon-search"></i></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!--END ODABIR PARCELA -->
+                    <!--LISTA PARCELA -->
+                    <div class="col-md-12 row" style="text-align:center">
+					  <div class="tab" role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="{{cssStyleT}} {{plantazaVidljiva ? 'profileTab active' : ''}} "><a (click)="promeniTab()" aria-controls="home" role="tab" data-toggle="tab">{{selectedLang[0]["text"]}}</a></li>
+                    <li role="presentation" class="{{cssStyleT}} {{parcelaVidljiva ? 'profileTab active' : ''}}"><a (click)="promeniTab1()" aria-controls="profile" role="tab" data-toggle="tab">{{selectedLang[1]["text"]}}</a></li>
+                   
+                </ul></div>
+                      
+                        <div class="panel panel-primary panelDef{{cssStyle}}">
+                            <div id="togglable-tabs" id="opcije">
+
+                               
+                                <!--  <div class="col-md-12 " style="text-align:center" *ngIf="!sideBarVidljiv&&plantazaVidljiva">
+                        <div class="col-md-4 col-centered " style="text-align:center;">
+  
+                            <div class="panel panel-primary">
+  
+                            </div>
+                        </div>
+                    </div>-->
+                                <div *ngIf="!sideBarVidljiv&&plantazaVidljiva&&!vidljivostchart&&!prognozaVidljiva" class="panel-heading highFivePanel{{cssStyle}}">{{selectedLang[2]["text"]}}</div>
+								 <form  method="get" *ngIf="!sideBarVidljiv&&plantazaVidljiva&&!vidljivostchart&&!prognozaVidljiva&&(lang[0]['lang']==undefined||lang[0]['lang']=='srb')" action="/search" id="search" style="padding:30px; background-color:white;">
+                                    <input name="q" type="text" size="40" placeholder="Pretraga plantaza" name="term" [(ngModel)]="term" />
+                                </form>
+								 <form  method="get" *ngIf="!sideBarVidljiv&&plantazaVidljiva&&!vidljivostchart&&!prognozaVidljiva&&lang[0]['lang']=='eng'" action="/search" id="search" style="padding:30px; background-color:white;">
+                                    <input name="q" type="text" size="40" placeholder="Search plantations" name="term" [(ngModel)]="term" />
+                                </form>
+                                <div *ngIf="!sideBarVidljiv&&plantazaVidljiva&&!vidljivostchart&&!prognozaVidljiva" class="panel-body ">
+                                    <div class="table-responsive">
+                                        <table *ngIf="!sideBarVidljiv&&plantazaVidljiva" class="table table-bordered table-striped" [mfData]="vrste" #mf="mfDataTable" [(mfSortBy)]="sortBy">
+                                            <thead>
+                                                <tr>
+                                                    <!--    <th>#</th>-->
+                                                    <th style="text-align: center">
+                                                        <mfDefaultSorter by="name">{{selectedLang[3]["text"]}}</mfDefaultSorter>
+                                                    </th>
+
+                                                    <th style="text-align: center">
+                                                        <mfDefaultSorter by="username">{{selectedLang[4]["text"]}}</mfDefaultSorter>
+                                                    </th>
+                                                    <th style="text-align: center">{{selectedLang[5]["text"]}}</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="idTabele">
+                                                <tr *ngFor="let i=index; let vrsta of mf.data | filter:term | paginate: { itemsPerPage: 5, currentPage: pp,id: 'prva' }">
+
+                                                    <td><span *ngIf="(dozvole!==undefined&&(vrste[i].dozvole.gledanjePlantaza || vrste[i].dozvole.plantCRUD  || vrste[i].dozvole.statistikaPrikaz))||isOwner">{{vrsta.name}}</span></td>
+
+                                                    <td><span *ngIf="(dozvole!==undefined&&(vrste[i].dozvole.gledanjePlantaza || vrste[i].dozvole.plantCRUD || vrste[i].dozvole.statistikaPrikaz ))||isOwner"><button type="text" style="display:none"></button>{{vrsta.username}}</span></td>
+                                                    <td *ngIf="lang[0]['lang']==undefined||lang[0]['lang']=='srb'">
+
+
+
+                                                        <span tooltip="Prikaz plantaze" flow="down" class="opcijePlantaza{{cssStyle}}"> <i *ngIf="(dozvole!==undefined&&(vrste[i].dozvole.gledanjePlantaza || vrste[i].dozvole.plantCRUD ))||isOwner" id="btn-login"
+                                                           (click)="prikaziPlantazu(vrsta.id)" class="fa fa-map-o fa-2x" ></i></span>
+														    <span tooltip="Vremenska prognoza" flow="down" class="opcijePlantaza{{cssStyle}}"> <i *ngIf="(dozvole!==undefined&&(vrste[i].dozvole.gledanjePlantaza || vrste[i].dozvole.plantCRUD ))||isOwner" id="btn-login"
+                                                           (click)="prikaziPrognozu(vrsta.id)" class="fa fa-thermometer-half  fa-2x" ></i></span>
+                                                        <span tooltip="Statistika" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+     <i  *ngIf="(dozvole!==undefined&&vrste[i].dozvole.statistikaPrikaz)||isOwner" (click)="prikaziStatistiku(vrsta.id)" class="fa fa-bar-chart fa-2x"></i>
+
+   </span>
+                                                        <span tooltip="Azuriranje" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+	 <i    *ngIf="isOwner||(dozvole!==undefined&&vrste[i].dozvole.plantCRUD)" id="btn-login" (click)="AzurirajPlant(vrsta.id)"  class="fa fa-pencil-square-o fa-2x"></i>
+
+   </span>
+                                                        <span tooltip="Brisanje" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+	<i   *ngIf="(dozvole!==undefined&&vrste[i].dozvole.plantCRUD)||isOwner" data-toggle="modal" data-target="#brisanjePlantaze"
+                                                            (click)='postaviIzabranuPlant(vrsta.id)' id="btn-login" class="fa fa-times fa-2x"> </i>
+
+   </span>
+   
+
+
+
+
+
+                                                    </td>
+													<td *ngIf="lang[0]['lang']=='eng'">
+
+
+
+                                                        <span tooltip="Show plantation" flow="down" class="opcijePlantaza{{cssStyle}}"> <i *ngIf="(dozvole!==undefined&&(vrste[i].dozvole.gledanjePlantaza || vrste[i].dozvole.plantCRUD ))||isOwner" id="btn-login"
+                                                           (click)="prikaziPlantazu(vrsta.id)" class="fa fa-map-o fa-2x" ></i></span>
+														    <span tooltip="Weather forecast" flow="down" class="opcijePlantaza{{cssStyle}}"> <i *ngIf="(dozvole!==undefined&&(vrste[i].dozvole.gledanjePlantaza || vrste[i].dozvole.plantCRUD ))||isOwner" id="btn-login"
+                                                           (click)="prikaziPrognozu(vrsta.id)" class="fa fa-thermometer-half  fa-2x" ></i></span>
+                                                        <span tooltip="Statistics" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+															 <i  *ngIf="(dozvole!==undefined&&vrste[i].dozvole.statistikaPrikaz)||isOwner" (click)="prikaziStatistiku(vrsta.id)" class="fa fa-bar-chart fa-2x"></i>
+
+														   </span>
+																												<span tooltip="Update" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+															 <i    *ngIf="isOwner||(dozvole!==undefined&&vrste[i].dozvole.plantCRUD)" id="btn-login" (click)="AzurirajPlant(vrsta.id)"  class="fa fa-pencil-square-o fa-2x"></i>
+
+														   </span>
+																												<span tooltip="Delete" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+															<i   *ngIf="(dozvole!==undefined&&vrste[i].dozvole.plantCRUD)||isOwner" data-toggle="modal" data-target="#brisanjePlantaze"
+																													(click)='postaviIzabranuPlant(vrsta.id)' id="btn-login" class="fa fa-times fa-2x"> </i>
+
+														   </span>
+   
+
+
+
+
+
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                           
+                                        </table>
+                                        <pagination-controls *ngIf="lang[0]['lang']==undefined||lang[0]['lang']=='srb'" style='cursor: pointer;' previousLabel="Prethodna" nextLabel="Sledeca" id="prva" (pageChange)="pp = $event"></pagination-controls>
+										<pagination-controls *ngIf="lang[0]['lang']=='eng'" style='cursor: pointer;' previousLabel="Back" nextLabel="Next" id="prva" (pageChange)="pp = $event"></pagination-controls>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-md-12 " style="text-align:center" *ngIf="!sideBarVidljiv&&parcelaVidljiva&&!prikazImanja">
+
+                                    <!--   <div class="col-md-4 col-centered " style="text-align:center;">
+                            <div class="panel panel-primary">
+                                <div class="panel-body " style="max-height: 65px">-->
+
+                                    <!--                                                   <div class="field">
+
+  <input type="text" placeholder="What?" name="term" [(ngModel)]="term"/>
+</div>-->
+
+
+                                    <!--             </div>
+                            </div>
+                        </div>-->
+                                </div>
+
+
+
+                                <div *ngIf="!sideBarVidljiv&&parcelaVidljiva&&!prikazImanja" class="panel-heading highFivePanel{{cssStyle}}">{{selectedLang[6]["text"]}}</div>
+								 <form method="get" *ngIf="!sideBarVidljiv&&parcelaVidljiva&&!prikazImanja&&(lang[0]['lang']==undefined||lang[0]['lang']=='srb')" action="/search" id="search" style="padding:30px;background-color:white;">
+                                    <input name="q" type="text" size="40" placeholder="Pretraga imanja" name="term" [(ngModel)]="term" />
+                                </form>
+								 <form method="get" *ngIf="!sideBarVidljiv&&parcelaVidljiva&&!prikazImanja&&lang[0]['lang']=='eng'" action="/search" id="search" style="padding:30px;background-color:white;">
+                                    <input name="q" type="text" size="40" placeholder="Search properties" name="term" [(ngModel)]="term" />
+                                </form>
+                                <div *ngIf="!sideBarVidljiv&&parcelaVidljiva&&!prikazImanja" class="panel-body ">
+                                    <div class="table-responsive">
+                                        <table *ngIf="!sideBarVidljiv&&parcelaVidljiva&&!prikazImanja"  class="table table-bordered table-striped" [mfData]="imanja" #mf="mfDataTable" [(mfSortBy)]="sortBy">
+                                            <thead>
+                                                <tr>
+                                                    <!--    <th>#</th>-->
+                                                    <th style="text-align: center"><mfDefaultSorter by="name">{{selectedLang[7]["text"]}}</mfDefaultSorter></th>
+                                                    <th style="text-align: center">{{selectedLang[5]["text"]}}</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="idTabele" *ngIf="imanja!==undefined&&dozvoleKodVlasnika!==undefined">
+                                                <tr *ngFor="let i=index; let imanje of mf.data | filter:term | paginate: { itemsPerPage: 5, currentPage: p, id: 'druga' }">
+
+                                                    <td><span *ngIf="isOwner || (dozvole!==undefined&& (imanja[i].dozvole.vrednosti.gledanjePlantaza || imanja[i].dozvole.vrednosti.plantCRUD))">{{imanje.name}}</span></td>
+
+                                                    <td *ngIf="lang[0]['lang']==undefined||lang[0]['lang']=='srb'">
+                                                        <span tooltip="Prikaz imanja" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+                                                        <i *ngIf="isOwner||(dozvole!==undefined&& (imanja[i].dozvole.vrednosti.gledanjePlantaza || imanja[i].dozvole.vrednosti.plantCRUD))"
+                                                            id="btn-login" (click)="prikaziImanje(imanje.id);popuniSideBar(imanje.id);" class="fa fa-map-o fa-2x"></i> </span>
+
+                                                        <span tooltip="Azuriranje imanja" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+                                                        <i *ngIf="isOwner || (dozvole!==undefined&&imanja[i].dozvole!==undefined&&imanja[i].dozvole.vrednosti.plantCRUD)" id="btn-login"
+                                                            (click)="AzurirajParcelu(imanje.id)" class="fa fa-pencil-square-o fa-2x"></i></span>
+                                                        <span tooltip="Brisanje imanja" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+                                                        <i *ngIf="  isOwner ||(dozvole!==undefined&&imanja[i].dozvole!==undefined&&imanja[i].dozvole.vrednosti.plantCRUD) " (click)="postaviIzabranoImanje(imanje.id)"
+                                                            id="btn-login" data-toggle="modal" data-target="#brisanjeImanja"
+                                                            class="fa fa-times fa-2x"> </i></span>
+
+
+                                                    </td>
+													<td *ngIf="lang[0]['lang']=='eng'">
+                                                        <span tooltip="Show property" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+                                                        <i *ngIf="isOwner||(dozvole!==undefined&& (imanja[i].dozvole.vrednosti.gledanjePlantaza || imanja[i].dozvole.vrednosti.plantCRUD))"
+                                                            id="btn-login" (click)="prikaziImanje(imanje.id);popuniSideBar(imanje.id);" class="fa fa-map-o fa-2x"></i> </span>
+
+                                                        <span tooltip="Update property" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+                                                        <i *ngIf="isOwner || (dozvole!==undefined&&imanja[i].dozvole!==undefined&&imanja[i].dozvole.vrednosti.plantCRUD)" id="btn-login"
+                                                            (click)="AzurirajParcelu(imanje.id)" class="fa fa-pencil-square-o fa-2x"></i></span>
+                                                        <span tooltip="Delete property" flow="down" class="opcijePlantaza{{cssStyle}}"> 
+                                                        <i *ngIf="  isOwner ||(dozvole!==undefined&&imanja[i].dozvole!==undefined&&imanja[i].dozvole.vrednosti.plantCRUD) " (click)="postaviIzabranoImanje(imanje.id)"
+                                                            id="btn-login" data-toggle="modal" data-target="#brisanjeImanja"
+                                                            class="fa fa-times fa-2x"> </i></span>
+
+
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                  
+										<pagination-controls *ngIf="lang[0]['lang']==undefined||lang[0]['lang']=='srb'" style='cursor: pointer;' previousLabel="Prethodna" nextLabel="Sledeca" id="druga" (pageChange)="p = $event"></pagination-controls>
+										<pagination-controls *ngIf="lang[0]['lang']=='eng'" style='cursor: pointer;' previousLabel="Back" nextLabel="Next" id="druga" (pageChange)="p = $event"></pagination-controls>
+                                  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--END LISTA PARCELA -->
+                <div [hidden]="!prikazImanja" id="mapIDimanje" style="height: 100%; width: 100%"></div>
+
+                <button *ngIf="sideBarImanje" (click)="nazadNaPrikazImanja()" class="btn backToPrikaz{{cssStyle}} col-md-3">{{selectedLang[17]["text"]}}</button>
+                <div class="col-md-3 infoTab{{cssStyle}}" *ngIf="sideBarImanje" style="width: 25%; height:680px; ">
+                    <div id="jovinDiv">
+                        <h3> {{selectedLang[37]["text"]}} </h3>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center">{{selectedLang[38]["text"]}}</th>
+                                        <th style="text-align: center" >{{selectedLang[39]["text"]}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="idTabele1">
+                                    <tr style="cursor: pointer" *ngFor="let i=index; let plantazaIM of plantazeSaImanja | filter:term | paginate: { itemsPerPage: 5, currentPage: p }"
+                                        (click)='fuja(i)'>
+
+                                        <td><span>{{plantazaIM.ime}}</span></td>
+
+                                        <td [style.background-color]="bojePoligona[i]" >
+                                           
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                       	<pagination-controls *ngIf="lang[0]['lang']==undefined||lang[0]['lang']=='srb'" style='cursor: pointer;' previousLabel="Prethodna" nextLabel="Sledeca" id="druga" (pageChange)="p = $event"></pagination-controls>
+										<pagination-controls *ngIf="lang[0]['lang']=='eng'" style='cursor: pointer;' previousLabel="Back" nextLabel="Next" id="druga" (pageChange)="p = $event"></pagination-controls>
+                                  
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div [hidden]="!sideBarVidljiv||vidljivostchart" id="mapID" style="height: 100%; width: 100%"></div>
+
+                <button *ngIf="sideBarVidljiv" (click)="nazadNaPrikaz()" class="btn backToPrikaz{{cssStyle}} col-md-3">{{selectedLang[18]["text"]}}</button>
+                <div class="col-md-3 infoTab{{cssStyle}}" *ngIf="sideBarVidljiv">
+
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <h2 id="day1" class="day">{{izabranaPlantaza.name}}</h2>
+                        </div>
+                    </div>
+
+                    <div class="row text-center" *ngIf="temperatura!==undefined">
+					
+									<i id="wicon-main" class="wi wi-main {{temperatura.weather[0].icon}}"></i>
+									<span id="temperature">{{temperatura.main.temp}}°C</span>
+							
+                        
+                    </div>
+
+
+                    
+                    <div class="row text-center">
+                        <div *ngIf="temperatura!==undefined" class="col-md-6 col-xs-6">
+                            <p id="main1">{{selectedLang[40]["text"]}}: {{temperatura.weather[0].description}}</p>
+                            <p id="humidity1">{{selectedLang[41]["text"]}}: {{temperatura.main.humidity}}</p>
+                            <p *ngIf="vlaznostZemljista!==undefined" id="humidity1">{{selectedLang[42]["text"]}}: {{vlaznostZemljista}}</p>
+
+                        </div>
+                        <div *ngIf="temperatura!==undefined" class="col-md-6 col-xs-6">
+                            <p id="main1">{{selectedLang[33]["text"]}}: {{izabranaPlantaza.namet}}</p>
+                            <p id="humidity1">{{selectedLang[34]["text"]}}: {{izabranaPlantaza.names}}</p>
+                            <p *ngIf="vlaznostZemljista!==undefined" id="humidity1">{{selectedLang[35]["text"]}}: {{izabranaPlantaza.namep}}</p>
+
+                        </div>
+                        <div style="display: block" *ngIf="pieChartLabels!==undefined&&pieChartData!==undefined">
+                            <canvas baseChart [data]="pieChartData" [legend]="false" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)">
+                            </canvas>
+                        </div>
+
+                    </div>
+
+                </div>
+				  <!-- prognoza-->
+				    <div class="col-md-12" *ngIf="prognozaVidljiva">
+	<section id="main" *ngIf="prognozaDan1!==undefined&&temperatura!==undefined">
+			<div class="bg-primary{{cssStyle}} w-section text-shadow">
+			<div class="container">
+					<div class="row text-white w-header">
+						<div class="col-sm-2  col-md-3 ">
+							
+						</div>
+						<div class="col-sm-8  col-md-6 ">
+							<div class="row">
+								
+								 <button *ngIf="prognozaVidljiva" (click)="nazadNaPrikaz()" class="btn backToPrikaz{{cssStyle}} col-md-12">{{selectedLang[18]["text"]}}</button>
+							</div>
+							
+						</div>
+						<div class="col-sm-2  col-md-3 ">
+							
+							
+						</div>
+					</div>
+					<div class="row text-white w-main">
+					<div class="col-sm-2  col-md-3 ">
+							
+							
+						</div>
+						<div class="col-sm-8  col-md-6 ">
+								<div class="text-center">
+									<i id="wicon-main" class="wi wi-main {{temperatura.weather[0].icon}}" style="visibility: visible; animation: 2000ms linear 0s normal none infinite running wi-moveY;"></i>
+									<span id="temperature">{{temperatura.main.temp}}°C</span>
+								</div>
+							<div class="row">
+								<div class="col-xs-12 w-desc-box">
+									<p id="description" class="text-capitalize">{{temperatura.weather[0].description}}</p>
+									<p><span id="humidity">{{temperatura.main.humidity}}</span> <i class="wi wi-humidity"></i> {{selectedLang[41]["text"]}} </p>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2  col-md-3 ">
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container card-section">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+					<div *ngIf="temperaturaProg!==undefined" class="days-box row text-center bg-white" style="visibility: visible;">
+							<div class="col-xs-3 day-first" style="visibility: visible;">
+								<p class="day">{{prognozaDan1}}</p>
+								<hr class="hr-title hr-title-primary">
+								<p><i class="wi {{prognozaDan1min.weather[0].icon}}"></i></p>
+								<p><span class="d-min-temp">{{prognozaDan1min.main.temp}}°</span> / <span class="d-max-temp">{{prognozaDan1max.main.temp}}°</span></p>
+							</div>
+							<div class="col-xs-3" style="visibility: visible;">
+								<p class="day">{{prognozaDan2}}</p>
+								<hr class="hr-title hr-title-primary">
+								<p><i class="wi {{prognozaDan2min.weather[0].icon}}"></i></p>
+									<p><span class="d-min-temp">{{prognozaDan2min.main.temp}}°</span> / <span class="d-max-temp">{{prognozaDan2max.main.temp}}°</span></p>
+							</div>
+							<div class="col-xs-3" style="visibility: visible;">
+								<p class="day">{{prognozaDan3}}</p>
+								<hr class="hr-title hr-title-primary">
+								<p><i class="wi {{prognozaDan3min.weather[0].icon}}"></i></p>
+								<p><span class="d-min-temp">{{prognozaDan3min.main.temp}}°</span> / <span class="d-max-temp">{{prognozaDan3max.main.temp}}°</span></p>
+							</div>
+							<div class="col-xs-3" style="visibility: visible;">
+								<p class="day">{{prognozaDan4}}</p>
+								<hr class="hr-title hr-title-primary">
+								<p><i class="wi {{prognozaDan4min.weather[0].icon}}"></i></p>
+								<p><span class="d-min-temp">{{prognozaDan4min.main.temp}}°</span> / <span class="d-max-temp">{{prognozaDan4max.main.temp}}°</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+                   
+
+                </div>
+				  <!--end prognoza-->
+				
+                <!-- CHART 1-->
+                <div class="row" *ngIf="vidljivostchart&&imaPodataka&&!sideBarVidljiv" style="text-align: center ">
+
+                    <button (click)="vratiNaPrikaz()" class="btn btn-primary btn-lg " style="float: left"><span class="fa fa-arrow-left"></span>                                                        nazad na prikaz </button>
+                    <div class="col-md-12 row">
+                        <div class="col-md-2 "> </div>
+                        <div class="col-md-8">
+                            <h3 class="row">{{selectedLang[19]["text"]}}</h3>
+                            <div style="display: block;">
+                                <canvas baseChart width="33%" height="20%" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                                    [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- KRAJ 1. CHARTA -->
+                <!-- CHART 2-->
+                <div class="row" *ngIf="vidljivostchartBar&&imaPodataka&&!sideBarVidljiv">
+                    <div class="col-md-2"> </div>
+                    <div class="col-md-8" style="text-align: center ">
+                        <h3 class="row">{{selectedLang[20]["text"]}}</h3>
+                        <div style="display: block;">
+                            <canvas baseChart [datasets]="barChartData" [colors]="lineChartColors" [labels]="barChartLabels" [options]="barChartOptions"
+                                [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartbarHovered($event)" (chartClick)="chartbarClicked($event)"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- KRAJ 2. CHARTA -->
+
+                <!-- CHART 3-->
+                <div class="row" *ngIf=" vidljivostRadar&&imaPodataka&&!sideBarVidljiv">
+                    <div class="col-md-12">
+                        <div class="col-md-2"> </div>
+                        <div class="col-md-8" style="text-align: center ">
+                            <h3 class="row">{{selectedLang[21]["text"]}}</h3>
+                            <div style="display: block;">
+                                <canvas baseChart [datasets]="radarChartData" [colors]="lineChartColors" [labels]="radarChartLabels" [chartType]="radarChartType"
+                                    (chartHover)="chartradarHovered($event)" (chartClick)="chartradarClicked($event)"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button (click)="vratiNaPrikaz()" class="btn btn-primary btn-lg " style="float: left"><span class="fa fa-arrow-left"></span> {{selectedLang[18]["text"]}} </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- KRAJ 3. CHARTA -->
+            </div>
+            <div *ngIf="!imaPodataka&&podaciTrazeni" role="alert" class="alert alert-danger alert-dismissible fade in">
+                <button aria-label="Close" (click)="skloniPoruku()" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button>    
+				{{selectedLang[22]["text"]}}
+            </div>
+
+         
+
+            <!--BRISANJE MODAL-->
+            <div class="modal fade" id="brisanjePlantaze" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{selectedLang[11]["text"]}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{selectedLang[23]["text"]}}</p>
+                            <p>{{selectedLang[23]["text"]}}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" (click)="Obrisi()" class="btn btn-success" data-dismiss="modal">{{selectedLang[24]["text"]}}</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal fade" id="brisanjeImanja" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{selectedLang[16]["text"]}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{selectedLang[25]["text"]}}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" (click)="Obrisi1()" class="btn btn-success" data-dismiss="modal">{{selectedLang[24]["text"]}}</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--END BRISANJE MODAL-->
+            <!--END ABOUT MODAL -->
+        </div>
+
+
+   <div id="page-wrapper" *ngIf="dozvole!==undefined&&dozvole.guest==true" >
+        <!-- <app-widgets></app-widgets>-->
+	<div class="col-sm-12 controls" style="text-align: center;align-items: center">
+    <!--     <button *ngIf="!isOwner" class="btn btn-primary" type="submit" >--> <i
+                                                            id="btn-login" data-toggle="modal" data-target="#zahtev"
+                                                            >{{selectedLang[43]["text"]}}</i>
+      <button *ngIf="!isOwner" class="btn btn-primary">  <i
+                                                            id="btn-login" data-toggle="modal" data-target="#zahtev"
+                                                            >{{selectedLang[43]["text"]}}</i></button>
+      
+	</div>
+<section id="main" *ngIf="prognozaDan1!==undefined&&temperatura!==undefined">
+			<div class="bg-primary w-section text-shadow">
+			<div class="container">
+					<div class="row text-white w-header">
+						<div class="col-sm-2  col-md-3 ">
+							
+						</div>
+						<div class="col-sm-8  col-md-6 ">
+						
+							
+						</div>
+						<div class="col-sm-2  col-md-3 ">
+							
+							
+						</div>
+					</div>
+					<div class="row text-white w-main">
+					<div class="col-sm-2  col-md-3 ">
+							
+							
+						</div>
+						<div class="col-sm-8  col-md-6 ">
+								<div class="text-center" style="float:left">
+									<!--<i id="wicon-main" class="wi wi-main {{temperatura.weather[0].icon}}" style="visibility: visible; animation: 2000ms linear 0s normal none infinite running wi-moveY;"></i>-->
+									<span id="temperature">{{temperatura.main.temp}}°C</span>
+									 <div  style="float:left" class="rainy"></div>
+								</div>
+							
+							 
+							<div class="row">
+								<div class="col-xs-12 w-desc-box">
+									<p id="description" class="text-capitalize">{{temperatura.weather[0].description}}</p>
+									<p><span id="humidity">{{temperatura.main.humidity}}</span> <i class="wi wi-humidity"></i> {{selectedLang[41]["text"]}} </p>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-8  col-md-6 ">
+								<div class="text-center" style="float:left">
+									<!--<i id="wicon-main" class="wi wi-main {{temperatura.weather[0].icon}}" style="visibility: visible; animation: 2000ms linear 0s normal none infinite running wi-moveY;"></i>-->
+									<span id="temperature">{{temperatura.main.temp}}°C</span>
+									 <div  style="float:left" class="sunny"></div>
+								</div>
+							
+							 
+							<div class="row">
+								<div class="col-xs-12 w-desc-box">
+									<p id="description" class="text-capitalize">{{temperatura.weather[0].description}}</p>
+									<p><span id="humidity">{{temperatura.main.humidity}}</span> <i class="wi wi-humidity"></i> {{selectedLang[41]["text"]}} </p>
+								</div>
+							</div>
+						</div>
+							<div class="col-sm-8  col-md-6 ">
+								<div class="text-center" style="float:left">
+									<!--<i id="wicon-main" class="wi wi-main {{temperatura.weather[0].icon}}" style="visibility: visible; animation: 2000ms linear 0s normal none infinite running wi-moveY;"></i>-->
+									<span id="temperature">{{temperatura.main.temp}}°C</span>
+									 <div  style="float:left" class="cloudy"></div>
+								</div>
+							
+							 
+							<div class="row">
+								<div class="col-xs-12 w-desc-box">
+									<p id="description" class="text-capitalize">{{temperatura.weather[0].description}}</p>
+									<p><span id="humidity">{{temperatura.main.humidity}}</span> <i class="wi wi-humidity"></i> {{selectedLang[41]["text"]}} </p>
+								</div>
+							</div>
+						</div>
+								<div class="col-sm-8  col-md-6 ">
+								<div class="text-center" style="float:left">
+									<!--<i id="wicon-main" class="wi wi-main {{temperatura.weather[0].icon}}" style="visibility: visible; animation: 2000ms linear 0s normal none infinite running wi-moveY;"></i>-->
+									<span id="temperature">{{temperatura.main.temp}}°C</span>
+									 <div  style="float:left" class="stormy"></div>
+								</div>
+							
+							 
+							<div class="row">
+								<div class="col-xs-12 w-desc-box">
+									<p id="description" class="text-capitalize">{{temperatura.weather[0].description}}</p>
+									<p><span id="humidity">{{temperatura.main.humidity}}</span> <i class="wi wi-humidity"></i> {{selectedLang[41]["text"]}} </p>
+								</div>
+							</div>
+						</div>
+								<div class="col-sm-8  col-md-6 ">
+								<div class="text-center" style="float:left">
+									<!--<i id="wicon-main" class="wi wi-main {{temperatura.weather[0].icon}}" style="visibility: visible; animation: 2000ms linear 0s normal none infinite running wi-moveY;"></i>-->
+									<span id="temperature">{{temperatura.main.temp}}°C</span>
+									 <div  style="float:left" class="starry"></div>
+								</div>
+							
+							 
+							<div class="row">
+								<div class="col-xs-12 w-desc-box">
+									<p id="description" class="text-capitalize">{{temperatura.weather[0].description}}</p>
+									<p><span id="humidity">{{temperatura.main.humidity}}</span> <i class="wi wi-humidity"></i> {{selectedLang[41]["text"]}} </p>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2  col-md-3 ">
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container card-section">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+					<div *ngIf="temperaturaProg!==undefined" class="days-box row text-center bg-white" style="visibility: visible;">
+							<div class="col-xs-3 day-first" style="visibility: visible;">
+								<p class="day">{{prognozaDan1}}</p>
+								<hr class="hr-title hr-title-primary">
+								<p><i class="wi {{prognozaDan1min.weather[0].icon}}"></i></p>
+								<p><span class="d-min-temp">{{prognozaDan1min.main.temp}}°</span> / <span class="d-max-temp">{{prognozaDan1max.main.temp}}°</span></p>
+							</div>
+							<div class="col-xs-3" style="visibility: visible;">
+								<p class="day">{{prognozaDan2}}</p>
+								<hr class="hr-title hr-title-primary">
+								<p><i class="wi {{prognozaDan2min.weather[0].icon}}"></i></p>
+									<p><span class="d-min-temp">{{prognozaDan2min.main.temp}}°</span> / <span class="d-max-temp">{{prognozaDan2max.main.temp}}°</span></p>
+							</div>
+							<div class="col-xs-3" style="visibility: visible;">
+								<p class="day">{{prognozaDan3}}</p>
+								<hr class="hr-title hr-title-primary">
+								<p><i class="wi {{prognozaDan3min.weather[0].icon}}"></i></p>
+								<p><span class="d-min-temp">{{prognozaDan3min.main.temp}}°</span> / <span class="d-max-temp">{{prognozaDan3max.main.temp}}°</span></p>
+							</div>
+							<div class="col-xs-3" style="visibility: visible;">
+								<p class="day">{{prognozaDan4}}</p>
+								<hr class="hr-title hr-title-primary">
+								<p><i class="wi {{prognozaDan4min.weather[0].icon}}"></i></p>
+								<p><span class="d-min-temp">{{prognozaDan4min.main.temp}}°</span> / <span class="d-max-temp">{{prognozaDan4max.main.temp}}°</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+     	
+
+<div class="modal fade" id="zahtev" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{selectedLang[34]["Posalji zahtev za vlasnistvo"]}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{selectedLang[36]["Sigurni"]}}</p>
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" (click)="posaljiZahtev1()" class="btn btn-success" data-dismiss="modal">{{selectedLang[35]["Da"]}}</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+        <!--     <div class="container-fluid">
+            ovde ide neki content za guesta
+        </div>-->
+    </div>
+
+
+
+
+
+    </div>
+    <!--  <div id="page-wrapper" *ngIf="dozvole!==undefined&&dozvole.guest==true">-->
+
+ 
+
+
+
+
+</body>
+
+</html>

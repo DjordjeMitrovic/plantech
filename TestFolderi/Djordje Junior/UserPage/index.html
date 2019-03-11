@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>PlanTech</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="HighFive" />
+
+    <link rel='stylesheet prefetch' href='css/bootstrap.min.css'>
+    <link rel="stylesheet" href="css/mainStyle.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="css/infoTabStyle.css">
+    <link rel="stylesheet" href="css/weather-icons.css">
+    <link href="fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqbPWLQuyiljUeKZ4f8KTsAHmCFnSAMJs&libraries=drawing"
+        defer>
+
+        </script>
+
+
+
+    <script>
+        function initMap() {
+            var mapProp = {
+                center: new google.maps.LatLng(51.508742, -0.120850),
+                zoom: 5,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+
+        <app-meni></app-meni>
+        <!-- glavni deo -->
+        <div id="page-wrapper" *ngIf="dozvole!==undefined&&dozvole.guest==false">
+
+            <div class="container-fluid">
+                <!-- widgeti -->
+                <div class="col-md-12 " style="text-align:center;margin-top: 10px">
+                    <div class="col-md-3">
+                        <div class="widget widget-success widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-globe"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div *ngIf="stats!==undefined" class="widget-int num-count">{{stats.plantaze}}</div>
+                                <div class="widget-title">registrovanih plantaza</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="widget widget-primary widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-users"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div *ngIf="stats!==undefined" class="widget-int num-count">{{stats.radnici}}</div>
+                                <div class="widget-title">registrovana radnka</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="widget widget-info widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-book"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div *ngIf="stats!==undefined" class="widget-int num-count">{{stats.eksperti}}</div>
+                                <div class="widget-title">registrovanih experata</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 ">
+                        <div class="widget widget-warning widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-warning"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div *ngIf="stats!==undefined" class="widget-int num-count">{{stats.obavestenja}}</div>
+                                <div class="widget-title">obavestenja</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end widgeti -->
+
+            <div class="container-fluid">
+                <!-- ODABIR PARCELA -->
+                <form id="filter">
+                    <div class="col-md-12 " style="text-align:center" *ngIf="!sideBarVidljiv">
+                        <div class="col-md-4 col-centered " style="text-align:center;">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" style="background-color:  #8f2846;max-height: 42px">Odabir mojih parcela</div>
+                                <div class="panel-body " style="max-height: 65px">
+                                    <div class="input-group block center">
+
+                                        <!--  <select class="selectpicker" data-live-search="true">
+                                                <option data-tokens="Djoletova" >Djoletova parcela</option>
+                                                <option data-tokens="Jovanina">Jovanina parcela</option>
+                                                <option data-tokens="Jovanova">Jovanova parcela</option>
+                                                <option data-tokens="Drugog Djoletova">Drugog Djoleta parcela</option>
+                                                <option data-tokens="Bojanova">Bojanova parcela</option>
+                                            </select>-->
+                                        <span class="input-group-btn" style="width: 0;text-align: initial;">
+                                                  
+                                                <span class="input-group-addon">  <input type="text" name="term" [(ngModel)]="term"/> <i class="glyphicon glyphicon-search"></i></span>
+
+                                        </span>
+                                        <!--         <span class="input-group-btn" style="width: 0;text-align: initial;">
+                                
+                                                    <button class="btn btn-default" type="button">
+                                            <span class="fa fa-search"></span>
+                                                       <input type="text" name="term" [(ngModel)]="term"/>   </button>
+                                    </span>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--END ODABIR PARCELA -->
+                    <!--LISTA PARCELA -->
+                    <div class="col-md-12 row" style="text-align:center">
+                        <div class="panel panel-primary">
+                            <div *ngIf="!sideBarVidljiv" class="panel-heading" style="background-color:  #8f2846">Lista mojih plantaza</div>
+                            <div *ngIf="!sideBarVidljiv" class="panel-body ">
+                                <div class="table-responsive">
+                                    <table *ngIf="!sideBarVidljiv" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <!--    <th>#</th>-->
+                                                <th style="text-align: center">Ime plantaze</th>
+                                                <th style="text-align: center">Tip</th>
+                                                <th style="text-align: center">Podtip</th>
+                                                <th style="text-align: center">Proizvodjac semena</th>
+                                                <th style="text-align: center">Username vlasnika plantaze</th>
+                                                <th style="text-align: center">Obrisi plantazu</th>
+                                                <th style="text-align: center">Azuriraj plantazu</th>
+                                                <th style="text-align: center">Prikazi plantazu</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="idTabele">
+                                            <tr *ngFor="let i=index; let vrsta of vrste | filter:term">
+
+                                                <td><span *ngIf="dozvole!==undefined&&vrste[i].dozvole.gledanjePlantaza">{{vrsta.name}}</span></td>
+                                                <td><span *ngIf="dozvole!==undefined&&vrste[i].dozvole.gledanjePlantaza">{{vrsta.namet}}</span></td>
+                                                <td><span *ngIf="dozvole!==undefined&&vrste[i].dozvole.gledanjePlantaza">{{vrsta.names}}</span></td>
+                                                <td><span *ngIf="dozvole!==undefined&&vrste[i].dozvole.gledanjePlantaza">{{vrsta.namep}}</span></td>
+                                                <td><span *ngIf="dozvole!==undefined&&vrste[i].dozvole.gledanjePlantaza"><button type="text" style="display:none"></button>{{vrsta.username}}</span></td>
+                                                <td><button *ngIf="dozvole!==undefined&&vrste[i].dozvole.plantCRUD" (click)="Obrisi(b.value)"
+                                                        #b id="btn-login" class="btn btn logButton" value="{{vrsta.id}}" style="background-color: #31b0d5; color:white">Obrisi </button></td>
+                                                <td><button *ngIf="dozvole!==undefined&&vrste[i].dozvole.plantCRUD" id="btn-login"
+                                                        (click)="AzurirajPlant(a.value)" #a class="btn btn logButton" value="{{vrsta.id}}"
+                                                        style="background-color:#337ab7; color:white">Azuriraj</button></td>
+                                                <td><button id="btn-login" (click)=" prikaziPlantazu(a.value)" #a class="btn btn logButton"
+                                                        value="{{vrsta.id}}" style="background-color:#337ab7; color:white">Prikazi</button></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--END LISTA PARCELA -->
+
+                <div [hidden]="!sideBarVidljiv" id="mapID" style="height: 100%; width: 100%">
+
+
+                </div>
+                <div class="col-md-3 infoTab" *ngIf="sideBarVidljiv">
+                    <button (click)="nazadNaPrikaz()">nazad na prikaz</button>
+                    <div class="row text-center">
+                        <div *ngIf="izabranaPlantaza!==undefined" class="col-md-12">
+                            <h2 id="day1" class="day">{{izabranaPlantaza.name}}</h2>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div *ngIf="temperatura!==undefined" class="col-md-12" style="width:100%;font-size:100px;color:white;"><img src="http://openweathermap.org/img/w/{{temperatura.weather[0].icon}}.png" /></div>
+                    </div>
+
+
+                    <div class="row text-center">
+                        <div *ngIf="temperatura!==undefined" class="col-md-12">
+                            <p id="temp1" class="temp">{{temperatura.main.temp}}°C</p>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div *ngIf="temperatura!==undefined" class="col-md-6 col-xs-6">
+                            <p id="main1">Vreme: {{temperatura.weather[0].main}}</p>
+                            <p id="humidity1">Vlaznost vazduha: {{temperatura.main.humidity}}</p>
+                            <p *ngIf="vlaznostZemljista!==undefined" id="humidity1">Vlaznost zemljista: {{vlaznostZemljista}}</p>
+
+                        </div>
+                        <div *ngIf="d!==undefined&&date!==undefined&&mon!==undefined" class="col-md-6 col-xs-6">
+                            <p id="dayNum1" class="dayNum">{{date}}.</p>
+                            <p id="month1" class="month">{{mon}}</p>
+                        </div>
+                          <div style="display: block" *ngIf="pieChartLabels!==undefined&&pieChartData!==undefined">
+                            <canvas baseChart 
+                            [data]="pieChartData"
+                            [legend]="false"
+                             [labels]="pieChartLabels" 
+                             [chartType]="pieChartType" 
+                             (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)">
+                                </canvas>
+                        </div>
+                        
+                    </div>
+                  
+                </div>
+
+            </div>
+
+            <!-- CONTACT MODAL -->
+            <div id="ContactModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">Kontaktrijate nas</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal col-sm-12">
+                                <div class="form-group"><label>Ime</label><input name="ime" class="form-control required" placeholder="Vase ime"
+                                        data-placement="top" data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters."
+                                        type="text" [(ngModel)]="ime"></div>
+                                <div class="form-group"><label>Naslov</label><input name="naslov" class="form-control required" placeholder="Naslov poruke"
+                                        data-placement="top" data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters."
+                                        type="text" [(ngModel)]="naslov"></div>
+                                <div class="form-group"><label>E-Mail</label><input name="email" class="form-control email" placeholder="email@you.com (kako bi smo mogli da vam odgovrimo)"
+                                        data-placement="top" data-trigger="manual" data-content="Must be a valid e-mail address (user@gmail.com)"
+                                        type="text" [(ngModel)]="email"></div>
+                                <div class="form-group"><label>Poruka</label><textarea name="poruka" class="form-control" placeholder="Vasa poruka..."
+                                        data-placement="top" data-trigger="manual" [(ngModel)]="poruka"></textarea></div>
+
+                                <div class="form-group"><button (click)="posalji()" type="submit" class="btn btn-send pull-right">Posalji!</button>
+                                    <p class="help-block pull-left text-danger hide" id="form-error">  The form is not valid. </p>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Izadji</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END CONTACT MODAL -->
+
+            <!-- ABOUT MODAL -->
+            <div id="AboutModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">O nama</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>Uz pomoc mladog i entuzijazticnog tima sastavljenog od dva Djoleta, jednog Jovana,jedne Jovane
+                                i jednog Bojana kreirana je aplikacija koja ce zadovoljiti sve vase potrebe vezane za poljoprivredu
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Izadji</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END ABOUT MODAL -->
+        </div>
+        <div id="page-wrapper" *ngIf="dozvole!==undefined&&dozvole.guest==true">
+            <div id="ContactModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">Kontaktrijate nas</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal col-sm-12">
+                                <div class="form-group"><label>Ime</label><input name="ime" class="form-control required" placeholder="Vase ime"
+                                        data-placement="top" data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters."
+                                        type="text" [(ngModel)]="ime"></div>
+                                <div class="form-group"><label>Naslov</label><input name="naslov" class="form-control required" placeholder="Naslov poruke"
+                                        data-placement="top" data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters."
+                                        type="text" [(ngModel)]="naslov"></div>
+                                <div class="form-group"><label>E-Mail</label><input name="email" class="form-control email" placeholder="email@you.com (kako bi smo mogli da vam odgovrimo)"
+                                        data-placement="top" data-trigger="manual" data-content="Must be a valid e-mail address (user@gmail.com)"
+                                        type="text" [(ngModel)]="email"></div>
+                                <div class="form-group"><label>Poruka</label><textarea name="poruka" class="form-control" placeholder="Vasa poruka..."
+                                        data-placement="top" data-trigger="manual" [(ngModel)]="poruka"></textarea></div>
+
+                                <div class="form-group"><button (click)="posalji()" type="submit" class="btn btn-send pull-right">Posalji!</button>
+                                    <p class="help-block pull-left text-danger hide" id="form-error">  The form is not valid. </p>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Izadji</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                ovde ide neki content za guesta
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

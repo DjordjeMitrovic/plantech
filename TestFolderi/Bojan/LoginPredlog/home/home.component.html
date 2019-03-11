@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqbPWLQuyiljUeKZ4f8KTsAHmCFnSAMJs&libraries=drawing"
+    defer>
+
+    </script>
+    <meta name="author" content="HighFive" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="css/homeStyleTemp.css">
+
+  
+</head>
+
+<body>
+		  <div class="skw-page2-6" *ngIf="loginForm">
+   <div class="wrap_bg">
+    <div id="main" class="login_wrap {{Active}}">
+        <div class="login_question_wrap">
+            <div class="question_singUp ">
+                <h2 class="title">Nemate nalog?</h2>
+                <p>Prijavite se na nas sajt brzo, lako i besplatno
+                </p>
+                <a  (click)="signUpBtn()" class="btn btn_rounded">Registruj se</a>
+									 <a  (click)="meni()" class="btn btn_rounded">Meni</a>
+            </div>
+            <div class="question_login ">
+                <h2 class="title">Imate nalog?</h2>
+                <p>Prijati se na vas nalog 
+                </p>
+                <a  (click)="loginBtn()" class="btn btn_rounded">Prijavi se</a>
+								 <a  (click)="meni()" class="btn btn_rounded">Meni</a>
+            </div>
+            <div class="action_singUp">
+                <form action="#">
+                    <fieldset>
+                        <legend class="title">Registracija</legend>
+                        <div class="input_block">
+                            <div class="input_wrap">
+                                <input type="text" id="sing_name" class="input" placeholder="Full Name">
+                                <label for="sing_name" class="label_name"></label>
+                            </div>
+                            <div class="input_wrap">
+                                <input type="text" id="sing_email" class="input" placeholder="Email">
+                                <label for="sing_email" class="label_mail"></label>
+                            </div>
+                            <div class="input_wrap">
+                                <input type="text" id="sing_pass" class="input" placeholder="Password">
+                                <label for="sing_pass" class="label_pass"></label>
+                            </div>
+							  <div class="input_wrap">
+                                <input type="text" id="sing_email" class="input" placeholder="Email">
+                                <label for="sing_email" class="label_mail"></label>
+                            </div>
+                            <div class="input_wrap">
+                                <input type="text" id="sing_pass" class="input" placeholder="Password">
+                                <label for="sing_pass" class="label_pass"></label>
+                            </div>
+							  <div class="input_wrap">
+                                <input type="text" id="sing_email" class="input" placeholder="Email">
+                                <label for="sing_email" class="label_mail"></label>
+                            </div>
+                            <div class="input_wrap">
+                                <input type="text" id="sing_pass" class="input" placeholder="Password">
+                                <label for="sing_pass" class="label_pass"></label>
+                            </div>
+                        </div>
+                        <input type="submit" value="Registracija" class="btn btn_red">
+                    </fieldset>
+                </form>
+            </div>
+            <div class="action_login">
+                <form action="#">
+                    <fieldset>
+                        <legend class="title">Prijava</legend>
+                        <div class="input_block">
+                            <div class="input_wrap">
+                                <input type="text" id="mail" class="input" placeholder="Email">
+                                <label for="sing_pass" class="label_mail"></label>
+                            </div>
+                            <div class="input_wrap">
+                                <input type="text" id="pass" class="input" placeholder="Password">
+                                <label for="sing_pass" class="label_pass"></label>
+                            </div>
+                        </div>
+                        <a href="#AboutModal"  data-toggle="modal" class="forgotPass">Zaboravili ste sifru?</a>
+                        <a type="submit" value="Login" href="#AboutModal"  data-toggle="modal" class="btn btn_red">klikk</a>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="login_action_wrap ">
+        </div>
+    </div>
+</div>
+   
+  </div>
+ <div class="skw-pages" *ngIf="!loginForm">
+  <div class="skw-page skw-page-1 active">
+    <div class="skw-page__half skw-page__half--left hidden-xs hidden-sm">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content"></div>
+      </div>
+    </div>
+    <div class="skw-page__half skw-page__half--right">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content">
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			
+			<ul class="nav navbar-nav">
+				  <li  class="active"><a class="one">Home</a></li>
+				  <li ><a  class="two">Aplikacija</a></li>
+				  <li  ><a class="three">Servisi</a></li>
+				  <li  ><a class="four">O nama</a></li>
+					<li ><a (click)="loginuj()">Kontakt</a></li>
+						<li routerLink="/login" ><a >Prijavi se</a></li>
+				</ul>
+			  </div>
+			</nav>
+			<div class="about">
+			 <p class="skw-page__description">Dobro dosli na</p>
+               <h1 class="deepshadow">PlanTech</h1>
+          <p class="skw-page__description">Pridruzite nam se i pocnite organizaciju vasih imanja</p>
+		  <a class="biliboard " routerLink="/login">Prijavi se!</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skw-page skw-page-2">
+    <div class="skw-page__half skw-page__half--left">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content">
+				<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			
+					<ul class="nav navbar-nav">
+				  <li ><a class="one">Home</a></li>
+				  <li  class="active"><a  class="two">Aplikacija</a></li>
+				  <li  ><a class="three">Servisi</a></li>
+				  <li  ><a class="four">O nama</a></li>
+					<li ><a class="five">Kontakt</a></li>
+							<li routerLink="/login" ><a >Prijavi se</a></li>
+				</ul>
+			  </div>
+			</nav>
+
+      
+          <p class="skw-page__description">Uz pomoć naše aplikacije možete vrlo lako i brzo voditi evidenciju o svim svojim plantažama i radnicima</p>
+		  <p class="skw-page__description">Uz sve to na raspolaganju vam je i naš pametni expertni sistem koji će vam dosta pomoći u radu</p>
+  
+		  <p class="skw-page__description">Cela aplikacija se isto može koristi na svim vašim uredjajima od računara do vašeg pametnog telefon</p>
+          
+       
+        </div>
+      </div>
+    </div>
+    <div class="skw-page__half skw-page__half--right">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content"></div>
+      </div>
+    </div>
+  </div>
+  <div class="skw-page skw-page-3">
+    <div class="skw-page__half skw-page__half--left">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content"></div>
+      </div>
+    </div>
+    <div class="skw-page__half skw-page__half--right">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content">
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			
+					<ul class="nav navbar-nav">
+				  <li><a class="one">Home</a></li>
+				  <li  ><a  class="two">Aplikacija</a></li>
+				  <li  class="active"><a class="three">Servisi</a></li>
+				  <li  ><a class="four">O nama</a></li>
+					<li ><a class="five">Kontakt</a></li>
+							<li routerLink="/login" ><a >Prijavi se</a></li>
+				</ul>
+			  </div>
+			</nav>
+
+          <h2 class="skw-page__heading">Servisi aplikacije</h2>
+          <p class="skw-page__description">servisi</p>
+		     	<div class="col-md-4 col-sm-5 col-xs-5">
+			<div class="g-content">
+				<ul class='circle-container'>
+					<li data-id="0" class="active">
+						<a href='#'>
+							<i class="fa fa-mobile"></i>
+						</a>
+					</li>
+					<li data-id="1">
+						<a href='#'>
+							<i class="fa fa-rocket"></i>
+						</a>
+					</li>
+					<li data-id="2">
+
+						<a href='#'>
+							<i class="fa fa-map-marker"></i>
+						</a>
+					</li>
+					<li data-id="3">
+
+						<a href='#'>
+							<i class="fa fa-line-chart"></i>
+						</a>
+					</li>
+					<li data-id="4">
+
+						<a href='#'>
+							<i class="fa fa-sun-o"></i>
+						</a>
+					</li>
+					<li data-id="5">
+
+						<a href='#'>
+							<i class="fa fa-paper-plane"></i>
+						</a>
+					</li>
+					<li data-id="6">
+
+						<a href='#'>
+							<i class="fa fa-search-plus"></i>
+						</a>
+					</li>
+					<li data-id="7">
+
+						<a href='#'>
+							<i class="fa fa-android"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="skw-page skw-page-4">
+    <div class="skw-page__half skw-page__half--left">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content">
+		<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			
+				<ul class="nav navbar-nav">
+				  <li><a class="one">Home</a></li>
+				  <li  ><a  class="two">Aplikacija</a></li>
+				  <li  ><a class="three">Servisi</a></li>
+				  <li  class="active"><a class="four">O nama</a></li>
+					<li ><a class="five">Kontakt</a></li>
+							<li routerLink="/login" ><a >Prijavi se</a></li>
+				</ul>
+			  </div>
+			</nav>
+          <h2 class="skw-page__heading"></h2>
+          <p class="skw-page__description">Naš HighFive tim je sačinjen od najboljih web programera i dizajnera zajedno sa velikim brojem experata iz oblasti poljoprivrede</p>
+		      <p class="skw-page__description">Naš cilj je da omogućimo korisniku lak i brz pristup našem sistemu</p>
+			  		      <p class="skw-page__description">Naš time za podršku je dostupan u svakom trenutku 24/7</p>
+						     <p class="skw-page__description">Zadovoljstvo naših korisnika je na prvom mestu</p>
+        </div>
+      </div>
+    </div>
+    <div class="skw-page__half skw-page__half--right">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content"></div>
+      </div>
+    </div>
+  </div>
+  <div class="skw-page skw-page-5">
+    <div class="skw-page__half skw-page__half--left">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content"></div>
+      </div>
+    </div>
+    <div class="skw-page__half skw-page__half--right">
+      <div class="skw-page__skewed">
+        <div class="skw-page__content">
+		  <div class="container-fluid">
+	<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			
+				<ul class="nav navbar-nav">
+				  <li><a class="one">Home</a></li>
+				  <li  ><a  class="two">Aplikacija</a></li>
+				  <li  ><a class="three">Servisi</a></li>
+				  <li  ><a class="four">O nama</a></li>
+					<li class="active"><a class="five">Kontakt</a></li>
+							<li routerLink="/login" ><a >Prijavi se</a></li>
+				</ul>
+			  </div>
+			</nav>
+       </div>
+			 
+			   <p class="skw-page__description">Pronadjite nas na svim aktuelnim drustvenim mrezama</p>
+				  <p class="skw-page__description">Ili nam pustite poruku klikom na pismo u sredini</p>
+        <div class="container-fluid">
+           <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
+       <div id="contact" class="not-visible">
+				  <div class="form-group"><button id="backToSocial" type="submit" class="btn backToPrikaz">Vrati me na socijalne mreze</button>
+                         
+                        </div>
+						
+                        <div class="form-group"><label>Ime</label><input name="ime" class="form-control required" placeholder="Vase ime" data-placement="top"
+                                data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters."
+                                type="text" [(ngModel)]="ime"></div>
+                        <div class="form-group"><label>Naslov</label><input name="naslov" class="form-control required" placeholder="Naslov poruke"
+                                data-placement="top" data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters."
+                                type="text" [(ngModel)]="naslov"></div>
+                        <div class="form-group"><label>Vas E-Mail</label><input name="email" class="form-control email" placeholder="email@you.com (kako bi smo mogli da vam odgovrimo)"
+                                data-placement="top" data-trigger="manual" data-content="Must be a valid e-mail address (user@gmail.com)"
+                                type="text" [(ngModel)]="email"></div>
+                        <div class="form-group"><label>Poruka</label><textarea name="poruka" class="form-control" placeholder="Vasa poruka..." data-placement="top"
+                                data-trigger="manual" [(ngModel)]="poruka"></textarea></div>
+
+                        <div class="form-group"><button (click)="posalji()" type="submit" class="btn btn-highFive">Posalji!</button>
+                            <p class="help-block pull-left text-danger hide" id="form-error">  The form is not valid. </p>
+                        </div>
+                    </div>
+        
+
+    <div id="social" class="social-container-wrap visible">
+      
+        <br /><br /><br />
+        <div class="social-container">
+            <a class="twitter"><i class="fa fa-twitter"></i></a>
+            <a  class="facebook"><i class="fa fa-facebook"></i></a>
+            <a class="googleplus"><i class="fa fa-google-plus"></i></a>
+            <a class="pinterest"><i class="fa fa-pinterest"></i></a>
+           <a class="envelope"><i class="fa fa-envelope"></i></a>
+            <a class="dribbble"><i class="fa fa-dribbble"></i></a>
+            <a class="instagram"><i class="fa fa-instagram"></i></a>
+            <a class="linkedin"><i class="fa fa-linkedin"></i></a>
+              <a class="instagram"><i class="fa fa-instagram"></i></a>
+            
+        </div>
+    </div>
+
+               
+            
+        </div><!--/.container-->
+    
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+       
+</body>
+
+</html>

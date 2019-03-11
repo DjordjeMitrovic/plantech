@@ -1,0 +1,7 @@
+body {
+    background-image:url('404.png');
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  height: 100%;
+}

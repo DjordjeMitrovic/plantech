@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+         <title>PlanTech</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="HighFive" /> 
+
+        <link rel='stylesheet prefetch' href='css/bootstrap.min.css'>
+        <link rel="stylesheet" href="css/mainStyle.css">
+		 <link rel="stylesheet" href="css/bootstrap-select.min.css">
+        <link href="fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+         <!-- full screen -->
+        <style>
+            #exampleImage { cursor:zoom-in; }
+            #exampleImage:-webkit-full-screen { cursor:zoom-out; }
+            #exampleImage:-moz-full-screen { cursor:zoom-out; }
+            #exampleImage:-ms-fullscreen { cursor:zoom-out; }
+            #exampleImage:fullscreen { cursor:zoom-out; }
+        </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Meni -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+         
+            <!-- Header colapse -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" style="padding: 0 5px 0 20%;">   <img class="img-responsive" src="logo.png" style="height: 50px" /></a>
+            </div>
+             <!--End Heder colapse -->
+             
+            <!-- Top Menu  -->
+            <ul class="nav navbar-right top-nav ">
+                <li class="hidden-sm hidden-xs">		
+                    <a id="btnFullscreen" ><i class="fa fa-expand"></i></a>
+                </li>
+              
+                  
+                  
+                  <!--alerts -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b>
+                      <span class="badge badge-success pull-right notification" style="">5</span>
+                    </a>
+                       <ul class="dropdown-menu message-dropdown">
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>HighFive</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Juce 4:32 </p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                   
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>HighFive</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Juce 4:32 </p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                   
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>HighFive</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i>Juce 4:32 </p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-footer">
+                            <a href="#" class="btn" style="background-color: #8f2846;color: white">Pogledaj sve</a>
+                        </li>
+                    </ul>
+                    
+                </li>
+                <!--end alerts -->
+                
+                <!--profil meni -->
+                <li class="dropdown">
+                    <a (click)="meniToggle()" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> HighFive <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profil</a>
+                        </li>
+                       
+                        <li>
+                              
+                            <a href="#SettingsModal" data-toggle="modal"><i class="fa fa-fw fa-gear"></i> Podešavanja</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Izloguj se</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--end profil meni -->
+            </ul>
+            <!--End Top Menu  -->
+            
+             <!-- desni meni  -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                      <!-- PROFILE -->
+                      <li class="xn-profile" style="width: 100%">
+                        <div class="profile">
+                            <div class="profile-data">
+                                <div class="profile-data-name">HighFive</div>
+                                <div class="profile-data-title">Team/Design/Programing</div>
+                            </div>
+                           
+                        </div>                                                                        
+                    </li>
+                       <!-- END PROFILE -->
+                    <li >
+                        <a href="#"><i class="fa fa-fw  fa-map-marker"></i> Moje plantaze</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-plus"></i>Dodaj plantazu</a>
+                    </li>
+                   
+                    <li class="active">
+                        <a href="#"><i class="fa fa-fw fa-users"></i> Moji ljudi</a>
+                    </li>
+                     
+                    <li class="hidden-lg hidden-md">
+                         <div class="col-md-12" style="padding: 0 0 0 0">
+                        <div class="col-md-6" style="padding: 0 0 0 0">
+                              <a  href="#AboutModal" class="btn btn-info" data-toggle="modal" style="width: 100%;border-radius: 0px;">O nama</a>
+                        </div>     
+                        <div class="col-md-6" style="padding: 0 0 0 0">
+                               <a  href="#ContactModal" class="btn btn-primary" data-toggle="modal" style="width: 100%;border-radius: 0px;">Kontakt</a>
+                          
+                        </div>
+                        </div>
+                    </li>
+                   
+                    
+                </ul>
+              
+                <div class="hidden-sm hidden-xs">
+                    <footer style="position:fixed; bottom: 0; height:60px; width: 225px;">
+                         <div class=" col-md-12" style="padding: 0 0 0 0;color: white;text-align: center">
+                               &copy; 2017 HighFive
+                         </div>
+                                         
+                        <div class="col-md-12" style="padding: 0 0 0 0">
+                        <div class="col-md-6" style="padding: 0 0 0 0">
+                              <a  href="#AboutModal" class="btn btn-info" data-toggle="modal" style="width: 100%;border-radius: 0px;">O nama</a>
+                          
+                        </div>     
+                        <div class="col-md-6" style="padding: 0 0 0 0">
+                              <a  href="#ContactModal" class="btn btn-primary" data-toggle="modal" style="width: 100%;border-radius: 0px;">Kontakt</a>
+                        </div>
+                            
+                        </div>
+                       
+                    </footer>        
+                </div> 
+            </div>
+            <!-- end desni meni  -->
+        </nav>
+        <!-- end Meni -->
+        
+          <!-- glavni deo -->
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+                  <!-- widgeti -->
+             <div class="col-md-12 " style="text-align:center;margin-top: 10px" >                                          
+                <div class="col-md-3">
+                            <div class="widget widget-success widget-item-icon">
+                                <div class="widget-item-left">
+                                    <span class="fa fa-globe"></span>
+                                </div>
+                                <div class="widget-data">
+                                       <div class="widget-int num-count">6</div>
+                                    <div class="widget-title">registrovanih parcela</div>  
+                                </div>                             
+                            </div>
+
+                </div>
+                 <div class="col-md-3">
+                            <div class="widget widget-primary widget-item-icon">
+                                <div class="widget-item-left">
+                                    <span class="fa fa-users"></span>
+                                </div>
+                                <div class="widget-data">
+                                       <div class="widget-int num-count">3</div>
+                                    <div class="widget-title">registrovana radnka</div>   
+                                </div>                      
+                            </div>
+                        </div>
+                 
+                    <div class="col-md-3">
+                            <div class="widget widget-info widget-item-icon">
+                                <div class="widget-item-left">
+                                    <span class="fa fa-book"></span>
+                                </div>
+                                <div class="widget-data">
+                                       <div class="widget-int num-count">1</div>
+                                    <div class="widget-title">registrovan expert</div> 
+                                </div>                                  
+                            </div>
+                        </div>
+                    <div class="col-md-3 ">
+                            <div class="widget widget-warning widget-item-icon">
+                                <div class="widget-item-left">
+                                    <span class="fa fa-warning"></span>
+                                </div>
+                                <div class="widget-data">
+                                       <div class="widget-int num-count">1</div>
+                                    <div class="widget-title">obavestenje</div>   
+                                </div>                           
+                            </div>
+                        </div>
+                 </div>
+              </div>
+                  <!-- end widgeti -->
+                  
+            <div class="container-fluid">    
+                    <!-- ODABIR PARCELA -->
+                <div class="col-md-12 " style="text-align:center" >
+             
+			<div class="col-md-12  " style="text-align:center;" >
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" style="background-color:  #8f2846;max-height: 42px">Unos podataka o novoj plantazi</div>
+                                     <div class="panel-body " style="height:100% ">   
+                                        <div class="col-md-12 " style="text-align:center;" >
+                                             <div class="col-md-3 " style="text-align:center;" >
+                                                  <label class="col-md-5 " style="padding-top: 5px">Ime plantaze</label>
+                                                <div  class="input-group col-md-7">
+                                                  
+                                                    <input  id="login-username" type="text" class="form-control" name="user" value="" >
+                                                      <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                                                </div>
+                                                
+                                            </div>
+                                             <div class="col-md-3 " style="text-align:center;" >
+                                                 <label class="col-md-5 " style="padding-top: 5px">Izaberite vrstu</label>
+                                                 <div class="col-md-7 ">
+                                                     <select class="btn-primary form-control" >
+                                                        <option>Jabuka</option>
+                                                        <option>Banana</option>
+                                                        <option>Jagoda</option>
+                                                        <option>Paprika</option>
+                                                    </select>
+                                                 </div>
+                                                 
+                                            </div>
+                                      
+                                             <div class="col-md-3 " style="text-align:center;" >
+                                                <label class="col-md-5 ">Izaberite podvrstu</label>
+                                                <div class="col-md-7 ">
+                                                     <select class="  btn-primary form-control" >
+                                                        <option>Jabuka 2</option>
+                                                        <option>Banana 2</option>
+                                                        <option>Jagoda 3</option>
+                                                        <option>Paprika 4</option>
+                                                    </select>
+                                                </div>
+                                                   
+                                                
+                                            </div>
+                                             <div class="col-md-3 " >
+                                                  <label class="col-md-5 ">Izaberite proizvodjaca semena</label>
+                                                  <div class="col-md-7 ">
+                                                      <select class=" btn-primary form-control"  >
+                                                    <option>Proizvodjac 1</option>
+                                                    <option>Proizvodjac 2</option>
+                                                    <option>Proizvodjac 3</option>
+                                                    <option>Proizvodjac 4</option>
+                                                    </select>
+                                                  </div>
+                                                  
+                                            </div>
+                                       
+                                           
+                                            
+                                                              
+                                     </div>
+                            </div>  
+                                <div class="panel-footer " style="height:100% ">
+                                    <button class="btn btn-success " >Iscrtaj na mapi</button>
+                                </div>
+                            
+                        </div>
+                    
+                </div>
+                <!--END ODABIR PARCELA -->
+              
+                
+             
+            </div>
+        
+   <!-- CONTACT MODAL -->
+<div id="ContactModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Kontaktrijate nas</h3>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal col-sm-12">
+          <div class="form-group"><label>Ime</label><input class="form-control required" placeholder="Vase ime" data-placement="top" data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters." type="text"></div>
+          <div class="form-group"><label>Poruka</label><textarea class="form-control" placeholder="Vasa poruka..." data-placement="top" data-trigger="manual"></textarea></div>
+          <div class="form-group"><label>E-Mail</label><input class="form-control email" placeholder="email@you.com (kako bi smo mogli da vam odgovrimo)" data-placement="top" data-trigger="manual" data-content="Must be a valid e-mail address (user@gmail.com)" type="text"></div>
+          <div class="form-group"><button type="submit" class="btn btn-send pull-right">Poslaji!</button> <p class="help-block pull-left text-danger hide" id="form-error">  The form is not valid. </p></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Izadji</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!--END CONTACT MODAL -->
+    
+    <!-- ABOUT MODAL -->
+<div id="AboutModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">O nama</h3>
+      </div>
+      <div class="modal-body">
+          <p>Uz pomoc mladog i entuzijazticnog tima sastavljenog od dva Djoleta, jednog Jovana,jedne Jovane i jednog Bojana kreirana
+          je aplikacija koja ce zadovoljiti sve vase potrebe vezane za poljoprivredu
+          </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Izadji</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!--END ABOUT MODAL -->
+        <!-- SETINGS MODAL -->
+<div id="SettingsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Podesavanja</h3>
+      </div>
+      <div class="modal-body">
+          <div class="panel panel-primary">
+                               
+                                <div class="panel-body">
+                                    <form action="#" role="form" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label text-left" style="padding-top: 0px;">Obavestenja putem email-a</label>
+                                            <div class="col-md-3">
+                                                <label class="switch">
+                                                    <input class="switch" value="1" checked="" type="checkbox">
+                                                    <span></span>
+                                                </label>                                            
+                                            </div>
+                                            <label class="col-md-3 control-label text-left" style="padding-top: 0px;">Uzmi moju lokaciju</label>
+                                            <div class="col-md-3">
+                                                <label class="switch">
+                                                    <input class="switch" value="0" checked="" type="checkbox">
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                            
+                                        </div>                                    
+                                  
+                                       
+                                        
+                                       
+                                    </form>
+                                </div>
+                            </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Izadji</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!--END SETINGS MODAL -->
+        </div>
+          <!-- end glavni deo -->
+    </div>
+ 
+
+
+
+
+    <!-- full screen -->
+
+</body>
+
+</html>
+ 
+
+
+
