@@ -29,6 +29,7 @@
     "mysql-events": "0.0.10",
     "ng2-scroll-to": "^1.0.7",
     "nodemailer": "^3.1.8",
+    "nools": "^0.4.4",
     "npm-openweathermap": "0.0.1",
     "request": "^2.81.0",
     "sha1": "^1.1.1",
